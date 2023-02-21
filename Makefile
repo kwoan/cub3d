@@ -6,7 +6,7 @@
 #    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 15:24:20 by kwpark            #+#    #+#              #
-#    Updated: 2023/02/21 15:08:56 by kwpark           ###   ########.fr        #
+#    Updated: 2023/02/21 16:00:25 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,7 @@ LIBFT = libft
 
 MLX = minilibx
 
-SOURCES = 	src/get_berfile.c \
-			src/key_press.c \
-			src/so_long.c \
-			src/error_check.c \
-			src/so_long_utils.c
+SOURCES = 	raycasting_tutorial.c
 
 OBJS = $(SOURCES:.c=.o)
 
