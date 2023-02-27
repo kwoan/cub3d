@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/02/27 23:53:21 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/02/28 00:03:14 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct	s_info
 	double  rotSpeed;
 }               t_info;
 
+void	draw_line(t_info *info, int x, int y1, int y2, int color);
 void    raycasting(t_info *info);
 int	    key_press(int key, t_info *info);
 

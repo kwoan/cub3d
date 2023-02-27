@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:53:40 by kwpark            #+#    #+#             */
-/*   Updated: 2023/02/27 23:50:02 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/02/28 00:03:02 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,19 @@ int	worldMap[24][24] = {
 							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 						};
-						
+
+void	draw_line(t_info *info, int x, int y1, int y2, int color)
+{
+	int	y;
+
+	y = y1;
+	while (y <= y2)
+	{
+		mlx_pixel_put(info->mlx, info->win, x, y, color);
+		y++;
+	}
+}
+
 int	main_loop(t_info *info)
 {
 	raycasting(info);
