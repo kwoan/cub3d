@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 18:47:55 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/04 22:17:13 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/03/23 07:56:19 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
-
-char	*get_next_line(int fd);
 
 typedef struct s_list
 {

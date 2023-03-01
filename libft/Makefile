@@ -6,12 +6,12 @@
 #    By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/09 21:57:10 by kwpark            #+#    #+#              #
-#    Updated: 2022/11/04 22:16:22 by kwpark           ###   ########.fr        #
+#    Updated: 2022/03/24 21:45:57 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=10
+CFLAGS = -Wall -Werror -Wextra
 NAME = libft.a
 
 AR = ar
@@ -53,7 +53,6 @@ SRCS = 		ft_isalpha.c \
 			ft_strmapi.c \
 			ft_striteri.c
 
-
 SRCS_B = 	ft_lstnew.c \
 			ft_lstadd_front.c \
 			ft_lstsize.c \
@@ -64,17 +63,13 @@ SRCS_B = 	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c
 
-SRCS_GNL =	get_next_line/get_next_line.c \
-			get_next_line/get_next_line_utils.c
-
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
-OBJS_GNL = $(SRCS_GNL:.c=.o)
 
 ifdef WITH_BONUS
 	OBJECTS = $(OBJS) $(OBJS_B)
 else
-	OBJECTS = $(OBJS) $(OBJS_GNL)
+	OBJECTS = $(OBJS)
 endif
 
 all : $(NAME)
