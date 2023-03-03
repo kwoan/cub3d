@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
+#    By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 15:24:20 by kwpark            #+#    #+#              #
-#    Updated: 2023/02/27 23:58:33 by kwpark           ###   ########.fr        #
+#    Updated: 2023/03/03 02:15:07 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ LIBFT = libft
 MLX = minilibx
 
 SOURCES = 	src/cub3d.c \
+			src/cub3d_utils.c \
 			src/raycasting.c \
+			src/raycasting_utils.c \
 			src/key_press.c
 
 OBJS = $(SOURCES:.c=.o)

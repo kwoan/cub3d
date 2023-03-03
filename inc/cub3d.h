@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/02/28 17:12:56 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/03 02:54:53 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 #define width 640
 #define height 480
 
+#define NO	0
+#define WE	1
+#define SO	2
+#define EA	3
+
 extern int  worldMap[24][24];
 
 typedef struct  s_raycast
@@ -54,6 +59,17 @@ typedef struct  s_raycast
 	int		drawEnd;
 }               t_raycast;
 
+typedef struct	s_tex
+{
+	int		texNum;
+	double	wallX;
+	int		texX;
+	int		texY;
+	double	step;
+	double	texPos;
+	int		color;
+}				t_tex;
+
 typedef struct	s_img
 {
 	void	*img;
@@ -64,6 +80,24 @@ typedef struct	s_img
 	int		img_width;
 	int		img_height;
 }				t_img;
+
+typedef struct	s_mapinfo
+{
+	char	*path_no;
+	char	*path_so;
+	char	*path_we;
+	char	*path_ea;
+
+	int		color_c;
+	int		color_f;
+
+	/*
+		int	worldMap[mapHeight][mapWidth];
+
+		int	mapWidth;
+		int	mapHeight;
+	*/
+}				t_mapinfo;
 
 typedef struct	s_info
 {
@@ -88,6 +122,8 @@ typedef struct	s_info
 	int		key_s;
 	int		key_d;
 	int		key_esc;
+
+	t_mapinfo *mapinfo;
 }               t_info;
 
 void    raycasting(t_info *info);
@@ -95,6 +131,13 @@ void	key_update(t_info *info);
 int		key_press(int key, t_info *info);
 int		key_release(int key, t_info *info);
 
+int		get_texnum(t_raycast *rc);
+void	camera_buf_flush(t_info *info);
+void	draw_texture(t_info *info, t_raycast *rc, t_tex *tex, int x);
+
+void	init_arr(int **arr, int size1, int size2, int value);
+void	load_texture(t_info *info);
+void	draw_buffer(t_info *info);
 
 
 #endif
