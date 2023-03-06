@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:42:08 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 17:39:15 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:41:05 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	get_texnum(t_raycast *rc)
 {
-	if (rc->side == 0)
+	if (rc->side == 1)
 	{
-		if (rc->raydir_x > 0)
-			return ((int)W);
+		if (rc->raydir_y > 0)
+			return (W);
 		else
-			return ((int)E);
+			return (E);
 	}
 	else
 	{
-		if (rc->raydir_y > 0)
-			return ((int)N);
+		if (rc->raydir_x > 0)
+			return (N);
 		else
-			return ((int)S);
+			return (S);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:39:42 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/06 09:55:49 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 12:34:44 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,31 @@ void	init_pos(t_info *info)
 	info->pos_y = info->player.y;
 	if (info->player.status == N)
 	{
-		info->dir_x = 0.0;
-		info->dir_y = -1.0;
-		info->plane_x = -0.66;
-		info->plane_y = 0.0;
+		info->dir_x = -1.0;
+		info->dir_y = 0.0;
+		info->plane_x = 0.0;
+		info->plane_y = 0.66;
 	}
 	else if (info->player.status == S)
-	{
-		info->dir_x = 0.0;
-		info->dir_y = 1.0;
-		info->plane_x = 0.66;
-		info->plane_y = 0.0;
-	}
-	else if (info->player.status == E)
 	{
 		info->dir_x = 1.0;
 		info->dir_y = 0.0;
 		info->plane_x = 0.0;
 		info->plane_y = -0.66;
 	}
+	else if (info->player.status == E)
+	{
+		info->dir_x = 0.0;
+		info->dir_y = 1.0;
+		info->plane_x = 0.66;
+		info->plane_y = 0.0;
+	}
 	else if (info->player.status == W)
 	{
-		info->dir_x = -1.0;
-		info->dir_y = 0.0;
-		info->plane_x = 0.0;
-		info->plane_y = 0.66;
+		info->dir_x = 0.0;
+		info->dir_y = -1.0;
+		info->plane_x = -0.66;
+		info->plane_y = 0.0;
 	}
 }
 
