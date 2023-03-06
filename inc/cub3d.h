@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/06 14:00:38 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:40:50 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	status;
-	int	x;
-	int	y;
+	int		status;
+	double	x;
+	double	y;
 }	t_player;
 
 typedef struct s_info
@@ -152,5 +152,6 @@ void	print_err(char *str);
 int		check_map_name(char *s);
 void	init_key(t_info *info);
 void	init_pos(t_info *info);
+int		quit_game(t_info *info);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:52:07 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/03 16:13:06 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:38:05 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static void	set_pos_player(char **map, t_player *player)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' \
 			|| map[i][j] == 'W')
 			{
-				player->x = i;
-				player->y = j;
+				player->x = i + 0.5;
+				player->y = j + 0.5;
 				map[i][j] = '0';
 			}
 			j++;

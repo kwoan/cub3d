@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:53:40 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/06 14:01:40 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:35:13 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	key_press(int key, t_info *info)
 {
 	if (key == K_ESC)
-		exit(0);
+		quit_game(info);
 	else if (key == K_W)
 		info->key_w = 1;
 	else if (key == K_A)
@@ -34,7 +34,7 @@ static int	key_press(int key, t_info *info)
 static int	key_release(int key, t_info *info)
 {
 	if (key == K_ESC)
-		exit(0);
+		quit_game(info);
 	else if (key == K_W)
 		info->key_w = 0;
 	else if (key == K_A)
@@ -100,5 +100,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
 	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);
+	mlx_hook(info.win, X_EVENT_KEY_EXIT, 0, quit_game, &info);
 	mlx_loop(info.mlx);
 }

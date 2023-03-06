@@ -6,7 +6,7 @@
 #    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 15:24:20 by kwpark            #+#    #+#              #
-#    Updated: 2023/03/06 10:45:46 by kwpark           ###   ########.fr        #
+#    Updated: 2023/03/06 14:46:59 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SOURCES = 	src/check_color.c \
 			src/cub3d.c \
 			src/ft_parse.c \
 			src/init.c \
-			src/key_press.c \
+			src/key_update.c \
 			src/load_map.c \
 			src/raycasting_utils.c \
 			src/raycasting.c \
