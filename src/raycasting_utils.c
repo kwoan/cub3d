@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:42:08 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:55:54 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/03 17:39:15 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	get_texnum(t_raycast *rc)
 {
 	if (rc->side == 0)
 	{
-		if (rc->rayDirX > 0)
-			return ((int)WE);
+		if (rc->raydir_x > 0)
+			return ((int)W);
 		else
-			return ((int)EA);
+			return ((int)E);
 	}
 	else
 	{
-		if (rc->rayDirY > 0)
-			return ((int)NO);
+		if (rc->raydir_y > 0)
+			return ((int)N);
 		else
-			return ((int)SO);
+			return ((int)S);
 	}
 }
 
@@ -36,15 +36,15 @@ void	camera_buf_flush(t_info *info)
 	int	j;
 
 	i = 0;
-	while (i < height)
+	while (i < HEIGHT)
 	{
 		j = 0;
-		while (j < width)
+		while (j < WIDTH)
 		{
-			if (i < (int)height / 2)
-				info->buf[i][j] = info->mapinfo->color_c;
+			if (i < (int)HEIGHT / 2)
+				info->buf[i][j] = info->map.c_color;
 			else
-				info->buf[i][j] = info->mapinfo->color_f;
+				info->buf[i][j] = info->map.f_color;
 			j++;
 		}
 		i++;
@@ -55,15 +55,13 @@ void	draw_texture(t_info *info, t_raycast *rc, t_tex *tex, int x)
 {
 	int	y;
 
-	y = rc->drawStart;
-	while (y < rc->drawEnd)
+	y = rc->draw_start;
+	while (y < rc->draw_end)
 	{
-		tex->texY = (int)tex->texPos & (texHeight - 1);
-		tex->texPos += tex->step;
+		tex->tex_y = (int)tex->tex_pos & (TEXHEIGHT - 1);
+		tex->tex_pos += tex->step;
 		tex->color = \
-			info->texture[tex->texNum][texHeight * tex->texY + tex->texX];
-		if (rc->side == 1)
-			tex->color = (tex->color >> 1) & 8355711;
+			info->texture[tex->texnum][TEXHEIGHT * tex->tex_y + tex->tex_x];
 		info->buf[y][x] = tex->color;
 		info->re_buf = 1;
 		y++;

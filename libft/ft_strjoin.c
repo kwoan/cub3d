@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 16:30:03 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/22 17:06:52 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/23 17:51:52 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/06 16:20:06 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*res;
-	size_t	i;
+	char	*s_new;
+	size_t	l1;
+	size_t	l2;
 
 	if (!s1 || !s2)
 		return (0);
-	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!res)
+	l1 = ft_strlen((char *)s1);
+	l2 = ft_strlen((char *)s2);
+	s_new = (char *)malloc(sizeof(char) * (l2 + l1 + 1));
+	if (s_new == 0)
 		return (0);
-	i = 0;
-	while (*s1)
-		res[i++] = *s1++;
-	while (*s2)
-		res[i++] = *s2++;
-	res[i] = '\0';
-	return (res);
+	ft_memcpy(s_new, s1, l1);
+	ft_memcpy(s_new + l1, s2, l2);
+	s_new[l1 + l2] = 0;
+	return (s_new);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 02:13:15 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:58:36 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/03 17:25:01 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	load_texture(t_info *info)
 {
 	t_img	img;
 
-	load_image(info, info->texture[0], info->mapinfo->path_no, &img);
-	load_image(info, info->texture[1], info->mapinfo->path_we, &img);
-	load_image(info, info->texture[2], info->mapinfo->path_so, &img);
-	load_image(info, info->texture[3], info->mapinfo->path_ea, &img);
+	load_image(info, info->texture[0], info->map.dir_no, &img);
+	load_image(info, info->texture[1], info->map.dir_we, &img);
+	load_image(info, info->texture[2], info->map.dir_so, &img);
+	load_image(info, info->texture[3], info->map.dir_ea, &img);
 }
 
 void	init_arr(int **arr, int size1, int size2, int value)
@@ -69,12 +69,12 @@ void	draw_buffer(t_info *info)
 	int	y;
 
 	y = 0;
-	while (y < height)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < width)
+		while (x < WIDTH)
 		{
-			info->img.data[y * width + x] = info->buf[y][x];
+			info->img.data[y * WIDTH + x] = info->buf[y][x];
 			x++;
 		}
 		y++;

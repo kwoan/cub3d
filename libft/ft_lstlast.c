@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:44:26 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/23 07:57:00 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/30 14:17:46 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/06 16:26:12 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	while (lst && lst->next)
-		lst = lst->next;
+	if (!lst)
+		return (NULL);
+	while (lst -> next)
+	{
+		lst = lst -> next;
+	}
 	return (lst);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 16:36:47 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/23 06:49:12 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/23 18:11:57 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/05 15:15:15 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
+	char	*str;
 	size_t	start;
 	size_t	end;
-	char	*res;
 
-	if (!s1)
+	if (!s1 || !set)
 		return (0);
 	start = 0;
-	if (!ft_strlen(s1))
-		end = ft_strlen(s1);
-	else
-		end = ft_strlen(s1) - 1;
-	while (s1[start] && (ft_strchr(set, s1[start]) != NULL))
+	end = ft_strlen((char *)s1);
+	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
-	while (s1[end] && (ft_strchr(set, s1[end]) != NULL) && (end > start))
+	while (s1[end - 1] && ft_strchr(set, s1[end - 1]) && end > start)
 		end--;
-	res = ft_substr(s1, start, end - start + 1);
-	return (res);
+	str = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!str)
+		return (0);
+	else
+		ft_strlcpy(str, &s1[start], end - start + 1);
+	return (str);
 }

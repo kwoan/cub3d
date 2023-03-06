@@ -3,55 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 18:21:12 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/17 21:17:39 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/30 15:53:17 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/05 17:24:08 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	int_len(int n)
+static size_t	numlen(int num)
 {
-	size_t	len;
+	size_t		cnt;
+	long long	n;
 
-	len = 0;
+	n = num;
+	cnt = 0;
 	if (n == 0)
 		return (1);
-	if (n < 0)
-		len++;
+	else if (n < 0)
+	{
+		n *= -1;
+		cnt++;
+	}
 	while (n)
 	{
 		n /= 10;
-		len++;
+		cnt++;
 	}
-	return (len);
+	return (cnt);
+}
+
+static void	trans(char *res, int num, int len)
+{
+	long long	n;
+
+	n = num;
+	if (n < 0)
+	{
+		n *= -1;
+		res[0] = '-';
+	}
+	if (n >= 10)
+	{
+		trans(res, (n / 10), --len);
+		res[len] = (n % 10) + '0';
+	}
+	else
+		res[--len] = (n % 10) + '0';
 }
 
 char	*ft_itoa(int n)
 {
-	char		*res;
-	size_t		i;
-	long long	tmp;
+	char	*res;
+	int		len;
 
-	res = malloc(sizeof(char) * (int_len(n) + 1));
+	len = numlen(n);
+	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (0);
-	i = int_len(n);
-	tmp = n;
-	if (tmp < 0)
-	{
-		tmp *= -1;
-		res[0] = '-';
-	}
-	res[i] = 0;
-	if (!tmp)
-		res[--i] = '0';
-	while (tmp)
-	{
-		res[--i] = tmp % 10 + '0';
-		tmp /= 10;
-	}
+	trans(res, n, len);
+	res[len] = '\0';
 	return (res);
 }

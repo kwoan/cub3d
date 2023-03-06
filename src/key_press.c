@@ -3,24 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 23:22:02 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:59:23 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 10:23:39 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	move_dir(t_info *info, double dir)
+static void	move_ws(t_info *info, double dir)
 {
 	double	move_dir;
 
-	move_dir = dir * info->moveSpeed;
-	if (!worldMap[(int)(info->posX + info->dirX * move_dir)][(int)info->posY])
-		info->posX += info->dirX * move_dir;
-	if (!worldMap[(int)info->posX][(int)(info->posY + info->dirY * move_dir)])
-		info->posY += info->dirY * move_dir;
+	move_dir = dir * info->move_speed;
+	if (info->map.map[(int)(info->pos_x + info->dir_x * move_dir)] \
+												[(int)info->pos_y] != '1')
+		info->pos_x += info->dir_x * move_dir;
+	if (info->map.map[(int)info->pos_x] \
+						[(int)(info->pos_y + info->dir_y * move_dir)] != '1')
+		info->pos_y += info->dir_y * move_dir;
+}
+
+static void	move_ad(t_info *info, double dir)
+{
+	double	move_dir;
+
+	move_dir = dir * info->move_speed;
+	if (info->map.map[(int)(info->pos_x + info->plane_x * move_dir)] \
+												[(int)info->pos_y] != '1')
+		info->pos_x += info->plane_x * move_dir;
+	if (info->map.map[(int)info->pos_x] \
+						[(int)(info->pos_y + info->plane_y * move_dir)] != '1')
+		info->pos_y += info->plane_y * move_dir;
 }
 
 static void	rot_dir(t_info *info, double dir)
@@ -29,24 +44,28 @@ static void	rot_dir(t_info *info, double dir)
 	double	oldplanex;
 	double	rot_dir;
 
-	rot_dir = info->rotSpeed * dir;
-	olddirx = info->dirX;
-	info->dirX = info->dirX * cos(rot_dir) - info->dirY * sin(rot_dir);
-	info->dirY = olddirx * sin(rot_dir) + info->dirY * cos(rot_dir);
-	oldplanex = info->planeX;
-	info->planeX = info->planeX * cos(rot_dir) - info->planeY * sin(rot_dir);
-	info->planeY = oldplanex * sin(rot_dir) + info->planeY * cos(rot_dir);
+	rot_dir = info->rot_speed * dir;
+	olddirx = info->dir_x;
+	info->dir_x = info->dir_x * cos(rot_dir) - info->dir_y * sin(rot_dir);
+	info->dir_y = olddirx * sin(rot_dir) + info->dir_y * cos(rot_dir);
+	oldplanex = info->plane_x;
+	info->plane_x = info->plane_x * cos(rot_dir) - info->plane_y * sin(rot_dir);
+	info->plane_y = oldplanex * sin(rot_dir) + info->plane_y * cos(rot_dir);
 }
 
 void	key_update(t_info *info)
 {
 	if (info->key_w)
-		move_dir(info, 1.0);
+		move_ws(info, 1.0);
 	if (info->key_s)
-		move_dir(info, -1.0);
+		move_ws(info, -1.0);
 	if (info->key_a)
-		rot_dir(info, 1.0);
+		move_ad(info, -1.0);
 	if (info->key_d)
+		move_ad(info, 1.0);
+	if (info->key_ar_l)
+		rot_dir(info, 1.0);
+	if (info->key_ar_r)
 		rot_dir(info, -1.0);
 	if (info->key_esc)
 		exit(0);
@@ -64,6 +83,10 @@ int	key_press(int key, t_info *info)
 		info->key_s = 1;
 	else if (key == K_D)
 		info->key_d = 1;
+	else if (key == K_AR_L)
+		info->key_ar_l = 1;
+	else if (key == K_AR_R)
+		info->key_ar_r = 1;
 	return (0);
 }
 
@@ -79,5 +102,9 @@ int	key_release(int key, t_info *info)
 		info->key_s = 0;
 	else if (key == K_D)
 		info->key_d = 0;
+	else if (key == K_AR_L)
+		info->key_ar_l = 0;
+	else if (key == K_AR_R)
+		info->key_ar_r = 0;
 	return (0);
 }

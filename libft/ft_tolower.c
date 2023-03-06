@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 16:00:44 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/11 16:01:31 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/14 18:03:13 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/03/23 14:08:56 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (c + 32);
-	else
-		return (c);
+	{
+		c = c + 32;
+	}
+	return (c);
 }

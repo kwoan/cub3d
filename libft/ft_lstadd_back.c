@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:52:14 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/23 07:56:33 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/30 14:45:38 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/06 16:25:17 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*node;
+	t_list	*back;
 
-	if (lst == NULL)
+	if (!lst || !new)
 		return ;
-	node = *lst;
-	while (node && node->next)
-		node = node->next;
-	if (!node)
+	back = *lst;
+	if (!(*lst))
+	{
 		*lst = new;
-	else
-		node->next = new;
+		return ;
+	}
+	while (back -> next)
+		back = back -> next;
+	back -> next = new;
 }

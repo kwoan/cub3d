@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:53:40 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:57:32 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/03 17:50:47 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-int	worldMap[mapWidth][mapHeight] =
-						{
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
-							{1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
-							{1,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
-							{1,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1,1,1,1},
-							{1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
-							{1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1},
-							{1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1},
-							{1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,1,0,1,1},
-							{1,0,1,0,1,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1},
-							{1,0,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,1,0,1,1},
-							{1,0,1,0,1,0,0,0,0,1,1,0,1,1,0,0,1,0,0,1,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,0,0,0,1},
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-						};
 
 int	main_loop(t_info *info)
 {
@@ -48,7 +20,7 @@ int	main_loop(t_info *info)
 	return (0);
 }
 
-void	init_info(t_info *info)
+static void	init_info(t_info *info)
 {
 	int	i;
 
@@ -58,71 +30,37 @@ void	init_info(t_info *info)
 		exit(1);
 	while (i < 4)
 	{
-		if (!(info->texture[i++] = (int *)malloc(sizeof(int) * (texHeight * texWidth))))
+		info->texture[i] = malloc(sizeof(int) * (TEXHEIGHT * TEXWIDTH));
+		if (!info->texture[i])
 		{
 			while (--i > 0)
 				free(info->texture[i]);
 			exit(1);
 		}
+		i++;
 	}
-	init_arr(info->texture, 4, texHeight * texWidth, 0);
-	info->moveSpeed = 0.03;
-	info->rotSpeed = 0.03;
-	info->re_buf = 0;	
-	info->key_a = 0;
-	info->key_w = 0;
-	info->key_s = 0;
-	info->key_d = 0;
-	info->key_esc = 0;
-	
-	info->posX = 22.0;
-	info->posY = 11.5;
-	info->dirX = -1.0;
-	info->dirY = 0.0;
-	info->planeX = 0.0;
-	info->planeY = 0.66;
-
+	init_arr(info->texture, 4, TEXHEIGHT * TEXWIDTH, 0);
+	init_key(info);
+	init_pos(info);
 	info->mlx = mlx_init();
-	info->win = mlx_new_window(info->mlx, width, height, "CUB3D");
-	info->img.img = mlx_new_image(info->mlx, width, height);
-	info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_line, &info->img.endian);
-}
-
-void	init_mapinfo(t_info *info, t_mapinfo *mapinfo)
-{
-	info->mapinfo = mapinfo;
-	
-	info->mapinfo->color_c = 0xff0000;
-	info->mapinfo->color_f = 0x0000ff;
-	info->mapinfo->path_no = "textures/NO.xpm";
-	info->mapinfo->path_so = "textures/SO.xpm";
-	info->mapinfo->path_we = "textures/WE.xpm";
-	info->mapinfo->path_ea = "textures/EA.xpm";
-
-	/*
-		init_pos --> as function(ex. get_dirX)
-	*/
-
-	camera_buf_flush(info);
+	info->win = mlx_new_window(info->mlx, WIDTH, HEIGHT, "cub3D");
+	info->img.img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
+	info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, \
+		&info->img.size_line, &info->img.endian);
 }
 
 int	main(int ac, char **av)
 {
 	t_info		info;
-	t_mapinfo	mapinfo;
 
-	(void)ac;
-	(void)av;
-
-	/*
-			map_parse(ac, av, mapinfo);
-	*/
-	
-	init_mapinfo(&info, &mapinfo);
+	if (ac != 2 || (check_map_name(av[1]) == 0))
+		print_err("ac error\n");
+	ft_parse(av[1], &info);
 	init_info(&info);
+	camera_buf_flush(&info);
 	load_texture(&info);
 	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
-	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);	
+	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);
 	mlx_loop(info.mlx);
 }

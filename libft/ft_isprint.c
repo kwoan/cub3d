@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 21:35:20 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/11 15:00:40 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/14 17:43:16 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/03/23 14:57:48 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	ft_isprint(int c)
 {
-	return (c >= 32 && c <= 126);
+	if (c >= ' ' && c < 127)
+		return (1);
+	return (0);
 }

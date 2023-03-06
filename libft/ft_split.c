@@ -3,80 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 16:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/24 21:49:05 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/30 16:26:28 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/06 16:21:37 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	word_count(char const *src, char c)
+char	**malloc_arr(char *str, char c)
 {
-	int	count;
+	size_t	cnt;
+	char	**arr;
 
-	count = 0;
-	while (*src == c && *src)
-		src++;
-	while (*src)
+	cnt = 0;
+	if (!str)
+		return (NULL);
+	while (*str)
 	{
-		while ((*src != c) && *src)
-			src++;
-		count++;
-		while (*src == c && *src)
-			src++;
+		if (*str != c)
+		{
+			cnt++;
+			while (*str != c && *str)
+				str++;
+		}
+		else
+			str++;
 	}
-	return (count);
+	arr = (char **)malloc(sizeof(char *) * (cnt + 1));
+	return (arr);
 }
 
-size_t	strlen_del(char const *str, char c)
+char	*split_dup(char const *str, size_t len)
 {
-	size_t	len;
+	char	*s;
+	size_t	i;
+
+	i = 0;
+	s = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s)
+		return (0);
+	while (i < len)
+	{
+		s[i] = str[i];
+		i++;
+	}
+	s[i] = 0;
+	return (s);
+}
+
+size_t	split_len(char const *str, char c)
+{
+	size_t		len;
 
 	len = 0;
-	while (str[len] && (str[len] != c))
+	while (str[len] && str[len] != c)
 		len++;
 	return (len);
 }
 
-int	free_all(char **res, size_t i)
+void	*allfree(char **str, size_t l)
 {
-	if (!res[i])
+	size_t	i;
+
+	i = 0;
+	while (str[i] && i <= l)
 	{
-		while (--i >= 0)
-			free(res[i]);
-		free(res);
-		return (1);
+		free(str[i]);
+		i++;
 	}
-	else
-		return (0);
+	free(str);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**res;
-	size_t	i;
+	size_t		i;
+	size_t		len;
+	char		**arr;
 
-	if (!s)
-		return (0);
-	res = malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (!res)
-		return (0);
 	i = 0;
+	len = 0;
+	arr = malloc_arr((char *)s, c);
+	if (!arr)
+		return (0);
 	while (*s)
 	{
-		if (strlen_del(s, c) > 0)
+		if (*s != c)
 		{
-			res[i] = ft_substr(s, 0, strlen_del(s, c));
-			if (free_all(res, i))
-				return (0);
-			i++;
+			len = split_len(s, c);
+			arr[i] = split_dup(s, len);
+			s += len;
+			len = 0;
+			if (!arr[i++])
+				return (allfree(arr, i));
 		}
-		s += strlen_del(s, c);
-		if (*s != 0)
+		else
 			s++;
 	}
-	res[i] = 0;
-	return (res);
+	arr[i] = 0;
+	return (arr);
 }

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 15:24:20 by kwpark            #+#    #+#              #
-#    Updated: 2023/03/03 02:15:07 by kwpark           ###   ########.fr        #
+#    Updated: 2023/03/06 09:48:02 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-NAME = CUB3D
+NAME = cub3D
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -20,11 +20,19 @@ LIBFT = libft
 
 MLX = minilibx
 
-SOURCES = 	src/cub3d.c \
+SOURCES = 	src/check_color.c \
+			src/check_dir.c \
+			src/check_wall.c \
 			src/cub3d_utils.c \
-			src/raycasting.c \
+			src/cub3d.c \
+			src/ft_parse.c \
+			src/init.c \
+			src/key_press.c \
+			src/load_map.c \
 			src/raycasting_utils.c \
-			src/key_press.c
+			src/raycasting.c \
+			src/test.c \
+			src/utils.c
 
 OBJS = $(SOURCES:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/14 21:45:15 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/23 08:20:18 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/17 20:42:59 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/03/30 14:33:17 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 void	ft_putnbr_fd(int nb, int fd)
 {
-	char	digit;
-
+	if (fd < 0)
+		return ;
 	if (nb == -2147483648)
-		write (fd, "-2147483648", 11);
-	else if (nb < 0)
 	{
-		write (fd, "-", 1);
-		ft_putnbr_fd(nb * -1, fd);
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		nb = 147483648;
 	}
-	else if (nb >= 10)
+	if (nb < 0)
 	{
-		ft_putnbr_fd(nb / 10, fd);
-		ft_putnbr_fd(nb % 10, fd);
+		ft_putchar_fd('-', fd);
+		nb *= -1;
+	}
+	if (nb < 10)
+	{
+		ft_putchar_fd(nb + 48, fd);
+		return ;
 	}
 	else
-	{
-		digit = nb + '0';
-		write (fd, &digit, 1);
-	}
+		ft_putnbr_fd(nb / 10, fd);
+	ft_putnbr_fd(nb % 10, fd);
 }

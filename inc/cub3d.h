@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:54:53 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 09:55:32 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,60 +17,58 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 # include "key_macos.h"
 
-#define X_EVENT_KEY_PRESS	2
+# define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_RELEASE	3
-#define X_EVENT_KEY_EXIT	17
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
-#define width 640
-#define height 480
+# define X_EVENT_KEY_EXIT	17
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
+# define WIDTH 640
+# define HEIGHT 480
 
-#define NO	0
-#define WE	1
-#define SO	2
-#define EA	3
+# define N	0
+# define W	1
+# define S	2
+# define E	3
 
-extern int  worldMap[24][24];
-
-typedef struct  s_raycast
+typedef struct s_raycast
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	sideDistX;
-	double	sideDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	int		map_x;
+	int		map_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	perpwalldist;
+	int		step_x;
+	int		step_y;
 	int		hit;
 	int		side;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-}               t_raycast;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_raycast;
 
-typedef struct	s_tex
+typedef struct s_tex
 {
-	int		texNum;
-	double	wallX;
-	int		texX;
-	int		texY;
+	int		texnum;
+	double	wallx;
+	int		tex_x;
+	int		tex_y;
 	double	step;
-	double	texPos;
+	double	tex_pos;
 	int		color;
 }				t_tex;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	int		*data;
@@ -81,52 +79,59 @@ typedef struct	s_img
 	int		img_height;
 }				t_img;
 
-typedef struct	s_mapinfo
+typedef struct s_map
 {
-	char	*path_no;
-	char	*path_so;
-	char	*path_we;
-	char	*path_ea;
+	char	**map;
+	int		count;
+	int		check;
+	int		f_color;
+	int		c_color;
+	int		start;
+	int		w;
+	int		h;
+	char	*dir_no;
+	char	*dir_so;
+	char	*dir_we;
+	char	*dir_ea;
+}	t_map;
 
-	int		color_c;
-	int		color_f;
-
-	/*
-		int	worldMap[mapHeight][mapWidth];
-
-		int	mapWidth;
-		int	mapHeight;
-	*/
-}				t_mapinfo;
-
-typedef struct	s_info
+typedef struct s_player
 {
-	double  posX;
-	double  posY;
-	double  dirX;
-	double  dirY;
-	double  planeX;
-	double  planeY;
-	void    *mlx;
-	void    *win;
-	double  moveSpeed;
-	double  rotSpeed;
+	int	status;
+	int	x;
+	int	y;
+}	t_player;
 
-	t_img	img;
-	int		buf[height][width];
-	int		**texture;
-	int		re_buf;
+typedef struct s_info
+{
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	void		*mlx;
+	void		*win;
+	double		move_speed;
+	double		rot_speed;
 
-	int		key_a;
-	int		key_w;
-	int		key_s;
-	int		key_d;
-	int		key_esc;
+	t_img		img;
+	int			buf[HEIGHT][WIDTH];
+	int			**texture;
+	int			re_buf;
 
-	t_mapinfo *mapinfo;
-}               t_info;
+	int			key_a;
+	int			key_w;
+	int			key_s;
+	int			key_d;
+	int			key_ar_l;
+	int			key_ar_r;
+	int			key_esc;
+	t_map		map;
+	t_player	player;
+}	t_info;
 
-void    raycasting(t_info *info);
+void	raycasting(t_info *info);
 void	key_update(t_info *info);
 int		key_press(int key, t_info *info);
 int		key_release(int key, t_info *info);
@@ -138,6 +143,22 @@ void	draw_texture(t_info *info, t_raycast *rc, t_tex *tex, int x);
 void	init_arr(int **arr, int size1, int size2, int value);
 void	load_texture(t_info *info);
 void	draw_buffer(t_info *info);
+void	print_err(char *str);
+int		ft_isspace(char c);
+int		ft_parse(char *name, t_info *info);
+int		check_dir(t_map *map, char *line, char c);
+void	check_color(t_map *map, char *line, char c);
+void	init_map(t_map *map);
+int		check_valid_map(char *line);
+size_t	ft_strcpy(char *dst, const char *src);
+void	load_map(char *name, t_info *info);
+void	check_wall(char **map, int w, int h);
+void	init_player(t_player *player);
 
+void	print_err(char *str);
+int		check_map_name(char *s);
+
+void	init_key(t_info *info);
+void	init_pos(t_info *info);
 
 #endif

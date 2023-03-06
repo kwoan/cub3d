@@ -1,49 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 16:14:00 by wonseoyun         #+#    #+#             */
-/*   Updated: 2022/03/23 14:41:36 by jaeywon          ###   ########.fr       */
+/*   Created: 2023/02/20 17:08:53 by jaeywon           #+#    #+#             */
+/*   Updated: 2023/02/23 18:51:05 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	isspace(char c)
-{
-	if (c == '\t' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\v' || c == ' ')
-		return (1);
-	return (0);
-}
-
-int	ft_atoi(const char *str)
+char	*ft_gnl_strjoin(char *s1, char *s2)
 {
 	int		i;
-	long	sign;
-	long	result;
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	free(s1);
+	while (*s2)
+	{
+		str[i] = *s2;
+		s2++;
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+int	chk_enter(char *st)
+{
+	int		i;
 
 	i = 0;
-	while (isspace(str[i]))
-		i++;
-	sign = 1;
-	if (str[i] == '+' || str[i] == '-')
+	while (st[i])
 	{
-		if (str[i] == '-')
-			sign *= -1;
+		if (st[i] == '\n')
+			return (i);
 		i++;
 	}
-	result = 0;
-	while (ft_isdigit(str[i]))
-	{
-		result *= 10;
-		result += str[i] - '0';
-		i++;
-	}
-	if (result < 0)
-		return ((sign + 1) / -2);
-	return (result * sign);
+	return (-1);
+}
+
+int	ft_error(char **st)
+{
+	if (*st)
+		free(*st);
+	return (-1);
 }

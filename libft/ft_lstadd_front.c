@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:25:57 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/23 07:56:40 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/30 14:47:09 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/04/06 16:25:57 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (lst == NULL)
-		return ;
-	new->next = *lst;
+	new -> next = *lst;
 	*lst = new;
 }

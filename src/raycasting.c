@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 23:21:28 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/03 02:56:12 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 09:43:53 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 
 static void	set_dda_vars(t_info *info, t_raycast *rc)
 {
-	rc->mapX = (int)(info->posX);
-	rc->mapY = (int)(info->posY);
-	rc->deltaDistX = fabs(1 / rc->rayDirX);
-	rc->deltaDistY = fabs(1 / rc->rayDirY);
+	rc->map_x = (int)(info->pos_x);
+	rc->map_y = (int)(info->pos_y);
+	rc->deltadist_x = fabs(1 / rc->raydir_x);
+	rc->deltadist_y = fabs(1 / rc->raydir_y);
 	rc->hit = 0;
-	if (rc->rayDirX < 0)
+	if (rc->raydir_x < 0)
 	{
-		rc->stepX = -1;
-		rc->sideDistX = (info->posX - rc->mapX) * rc->deltaDistX;
+		rc->step_x = -1;
+		rc->sidedist_x = (info->pos_x - rc->map_x) * rc->deltadist_x;
 	}
 	else
 	{
-		rc->stepX = 1;
-		rc->sideDistX = (rc->mapX + 1.0 - info->posX) * rc->deltaDistX;
+		rc->step_x = 1;
+		rc->sidedist_x = (rc->map_x + 1.0 - info->pos_x) * rc->deltadist_x;
 	}
-	if (rc->rayDirY < 0)
+	if (rc->raydir_y < 0)
 	{
-		rc->stepY = -1;
-		rc->sideDistY = (info->posY - rc->mapY) * rc->deltaDistY;
+		rc->step_y = -1;
+		rc->sidedist_y = (info->pos_y - rc->map_y) * rc->deltadist_y;
 	}
 	else
 	{
-		rc->stepY = 1;
-		rc->sideDistY = (rc->mapY + 1.0 - info->posY) * rc->deltaDistY;
+		rc->step_y = 1;
+		rc->sidedist_y = (rc->map_y + 1.0 - info->pos_y) * rc->deltadist_y;
 	}
 }
 
-static void	dda_algorithm(t_raycast *rc)
+static void	dda_algorithm(t_info *info, t_raycast *rc)
 {
 	while (rc->hit == 0)
 	{
-		if (rc->sideDistX < rc->sideDistY)
+		if (rc->sidedist_x < rc->sidedist_y)
 		{
-			rc->sideDistX += rc->deltaDistX;
-			rc->mapX += rc->stepX;
+			rc->sidedist_x += rc->deltadist_x;
+			rc->map_x += rc->step_x;
 			rc->side = 0;
 		}
 		else
 		{
-			rc->sideDistY += rc->deltaDistY;
-			rc->mapY += rc->stepY;
+			rc->sidedist_y += rc->deltadist_y;
+			rc->map_y += rc->step_y;
 			rc->side = 1;
 		}
-		if (worldMap[rc->mapX][rc->mapY] > 0)
+		if (info->map.map[rc->map_x][rc->map_y] == '1')
 			rc->hit = 1;
 	}
 }
@@ -66,37 +66,38 @@ static void	set_texture(t_info *info, t_raycast *rc, int x)
 {
 	t_tex	tex;
 
-	rc->drawStart = -rc->lineHeight / 2 + height / 2;
-	if (rc->drawStart < 0)
-		rc->drawStart = 0;
-	rc->drawEnd = rc->lineHeight / 2 + height / 2;
-	if (rc->drawEnd >= height)
-		rc->drawEnd = height - 1;
-	tex.texNum = get_texnum(rc);
+	rc->draw_start = -rc->line_height / 2 + HEIGHT / 2;
+	if (rc->draw_start < 0)
+		rc->draw_start = 0;
+	rc->draw_end = rc->line_height / 2 + HEIGHT / 2;
+	if (rc->draw_end >= HEIGHT)
+		rc->draw_end = HEIGHT - 1;
+	tex.texnum = get_texnum(rc);
 	if (rc->side == 0)
-		tex.wallX = info->posY + rc->perpWallDist * rc->rayDirY;
+		tex.wallx = info->pos_y + rc->perpwalldist * rc->raydir_y;
 	else
-		tex.wallX = info->posX + rc->perpWallDist * rc->rayDirX;
-	tex.wallX -= floor(tex.wallX);
-	tex.texX = (int)(tex.wallX * (double)texWidth);
-	if (rc->side == 0 && rc->rayDirX > 0)
-		tex.texX = texWidth - tex.texX - 1;
-	if (rc->side == 1 && rc->rayDirY < 0)
-		tex.texX = texWidth - tex.texX - 1;
-	tex.step = 1.0 * texHeight / rc->lineHeight;
-	tex.texPos = (rc->drawStart - height / 2 + rc->lineHeight / 2) * tex.step;
+		tex.wallx = info->pos_x + rc->perpwalldist * rc->raydir_x;
+	tex.wallx -= floor(tex.wallx);
+	tex.tex_x = (int)(tex.wallx * (double)TEXWIDTH);
+	if (rc->side == 0 && rc->raydir_x > 0)
+		tex.tex_x = TEXWIDTH - tex.tex_x - 1;
+	if (rc->side == 1 && rc->raydir_y < 0)
+		tex.tex_x = TEXWIDTH - tex.tex_x - 1;
+	tex.step = 1.0 * TEXHEIGHT / rc->line_height;
+	tex.tex_pos = \
+		(rc->draw_start - HEIGHT / 2 + rc->line_height / 2) * tex.step;
 	draw_texture(info, rc, &tex, x);
 }
 
 static void	get_perp(t_info *info, t_raycast *rc)
 {
 	if (rc->side == 0)
-		rc->perpWallDist = \
-			(rc->mapX - info->posX + (1 - rc->stepX) / 2) / rc->rayDirX;
+		rc->perpwalldist = \
+			(rc->map_x - info->pos_x + (1 - rc->step_x) / 2) / rc->raydir_x;
 	else
-		rc->perpWallDist = \
-			(rc->mapY - info->posY + (1 - rc->stepY) / 2) / rc->rayDirY;
-	rc->lineHeight = (int)(height / rc->perpWallDist);
+		rc->perpwalldist = \
+			(rc->map_y - info->pos_y + (1 - rc->step_y) / 2) / rc->raydir_y;
+	rc->line_height = (int)(HEIGHT / rc->perpwalldist);
 }
 
 void	raycasting(t_info *info)
@@ -107,13 +108,13 @@ void	raycasting(t_info *info)
 	x = 0;
 	if (info->re_buf == 1)
 		camera_buf_flush(info);
-	while (x < width)
+	while (x < WIDTH)
 	{
-		rc.cameraX = 2 * x / (double)width - 1;
-		rc.rayDirX = info->dirX + info->planeX * rc.cameraX;
-		rc.rayDirY = info->dirY + info->planeY * rc.cameraX;
+		rc.camera_x = 2 * x / (double)WIDTH - 1;
+		rc.raydir_x = info->dir_x + info->plane_x * rc.camera_x;
+		rc.raydir_y = info->dir_y + info->plane_y * rc.camera_x;
 		set_dda_vars(info, &rc);
-		dda_algorithm(&rc);
+		dda_algorithm(info, &rc);
 		get_perp(info, &rc);
 		set_texture(info, &rc, x);
 		x++;

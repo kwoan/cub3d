@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/10 16:29:15 by kwpark            #+#    #+#             */
-/*   Updated: 2022/03/21 15:22:17 by kwpark           ###   ########.fr       */
+/*   Created: 2022/03/15 16:44:48 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/03/23 14:51:48 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ void	ft_bzero(void *s, size_t n)
 
 	i = 0;
 	while (i < n)
-		((unsigned char *)s)[i++] = 0;
+	{
+		*(unsigned char *)(s + i) = 0;
+		i++;
+	}
 }
