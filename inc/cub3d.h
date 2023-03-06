@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/06 09:55:32 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:00:38 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,10 @@ typedef struct s_info
 	void		*win;
 	double		move_speed;
 	double		rot_speed;
-
 	t_img		img;
 	int			buf[HEIGHT][WIDTH];
 	int			**texture;
 	int			re_buf;
-
 	int			key_a;
 	int			key_w;
 	int			key_s;
@@ -133,13 +131,9 @@ typedef struct s_info
 
 void	raycasting(t_info *info);
 void	key_update(t_info *info);
-int		key_press(int key, t_info *info);
-int		key_release(int key, t_info *info);
-
 int		get_texnum(t_raycast *rc);
 void	camera_buf_flush(t_info *info);
 void	draw_texture(t_info *info, t_raycast *rc, t_tex *tex, int x);
-
 void	init_arr(int **arr, int size1, int size2, int value);
 void	load_texture(t_info *info);
 void	draw_buffer(t_info *info);
@@ -154,10 +148,8 @@ size_t	ft_strcpy(char *dst, const char *src);
 void	load_map(char *name, t_info *info);
 void	check_wall(char **map, int w, int h);
 void	init_player(t_player *player);
-
 void	print_err(char *str);
 int		check_map_name(char *s);
-
 void	init_key(t_info *info);
 void	init_pos(t_info *info);
 

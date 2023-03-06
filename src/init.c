@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:39:42 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/06 12:34:44 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:34:32 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,43 @@ void	init_player(t_player *player)
 	player->y = 0;
 }
 
+static void	init_dir_vec(t_info *info, int dir_sign, int plane_sign)
+{
+	if (info->player.status == N || info->player.status == S)
+	{
+		info->dir_x = 1.0 * dir_sign;
+		info->dir_y = 0.0 * dir_sign;
+		info->plane_x = 0.0 * plane_sign;
+		info->plane_y = 0.66 * plane_sign;
+	}
+	else if (info->player.status == E || info->player.status == W)
+	{
+		info->dir_x = 0.0 * dir_sign;
+		info->dir_y = 1.0 * dir_sign;
+		info->plane_x = 0.66 * plane_sign;
+		info->plane_y = 0.0 * plane_sign;
+	}
+}
+
 void	init_pos(t_info *info)
 {
+	int	dir_sign;
+	int	plane_sign;
+
 	info->pos_x = info->player.x;
 	info->pos_y = info->player.y;
+	dir_sign = 1;
+	plane_sign = 1;
 	if (info->player.status == N)
-	{
-		info->dir_x = -1.0;
-		info->dir_y = 0.0;
-		info->plane_x = 0.0;
-		info->plane_y = 0.66;
-	}
+		dir_sign = -1;
 	else if (info->player.status == S)
-	{
-		info->dir_x = 1.0;
-		info->dir_y = 0.0;
-		info->plane_x = 0.0;
-		info->plane_y = -0.66;
-	}
-	else if (info->player.status == E)
-	{
-		info->dir_x = 0.0;
-		info->dir_y = 1.0;
-		info->plane_x = 0.66;
-		info->plane_y = 0.0;
-	}
+		plane_sign = -1;
 	else if (info->player.status == W)
 	{
-		info->dir_x = 0.0;
-		info->dir_y = -1.0;
-		info->plane_x = -0.66;
-		info->plane_y = 0.0;
+		dir_sign = -1;
+		plane_sign = -1;
 	}
+	init_dir_vec(info, dir_sign, plane_sign);
 }
 
 void	init_key(t_info *info)
