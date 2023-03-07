@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:10:20 by kwpark            #+#    #+#             */
-/*   Updated: 2023/03/06 16:40:50 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/03/07 17:38:47 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
-# include "../minilibx/mlx.h"
+# include "../../libft/libft.h"
+# include "../../minilibx/mlx.h"
 # include "key_macos.h"
 
 # define X_EVENT_KEY_PRESS	2

@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:18:28 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/07 15:49:03 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:31:11 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static int	change_str_to_int(char *str)
 	return (result);
 }
 
-
-
 static int	get_strnum(char **str)
 {
 	int	i;
@@ -64,23 +62,12 @@ static int	color_parse(char *line)
 	int		color;
 
 	str = ft_split(line, ',');
-	// if (!str)
-	// {
-	// 	free_str(str);
-	// 	print_err("split error\n" );
-	// }
-	// if (str[0] == NULL || str[1] == NULL || str[2] == NULL)
-	// {
-	// 	free_str(str);
-	// 	print_err("COLOR imformations split dailed\n");
-	// }
 	if (!str || !str[0] || !str[1] || !str[2] || get_strnum(str) != 3)
 	{
 		free_str(str);
 		print_err("Wrong color value\n");
 	}
 	color = 0;
-	// str[2][ft_strlen(str[2]) - 1] = '\0';
 	rgb_r = change_str_to_int(str[0]);
 	rgb_g = change_str_to_int(str[1]);
 	rgb_b = change_str_to_int(str[2]);
