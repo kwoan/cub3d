@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:23:54 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/03 17:13:17 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/03/07 16:29:14 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	check_space_valid(char **map, int x, int y)
 		(map[y][x - 1] != '1' && map[y][x - 1] != ' ') || \
 		(map[y + 1][x] != '1' && map[y + 1][x] != ' ') || \
 		(map[y - 1][x] != '1' && map[y - 1][x] != ' '))
-		print_err("map space somethig wrong\n");
+		print_err("map space something wrong\n");
 }
 
 static void	check_map_edge(char **map, int w, int h)
