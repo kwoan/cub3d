@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:18:28 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/03 16:00:33 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:49:03 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	change_str_to_int(char *str)
 
 	result = 0;
 	i = -1;
+	while (ft_isspace(*str))
+		str++;
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -36,9 +38,21 @@ static int	change_str_to_int(char *str)
 		result *= 10;
 		result += str[i] - '0';
 	}
-	if (result < 0 || result > 255)
+	if (i > 3 || result < 0 || result > 255)
 		print_err("color is not 0~255\n");
 	return (result);
+}
+
+
+
+static int	get_strnum(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 static int	color_parse(char *line)
@@ -50,12 +64,23 @@ static int	color_parse(char *line)
 	int		color;
 
 	str = ft_split(line, ',');
-	if (!str)
-		print_err("split error\n" );
-	if (str[0] == NULL || str[1] == NULL || str[2] == NULL)
-		print_err("COLOR imformations split dailed\n");
+	// if (!str)
+	// {
+	// 	free_str(str);
+	// 	print_err("split error\n" );
+	// }
+	// if (str[0] == NULL || str[1] == NULL || str[2] == NULL)
+	// {
+	// 	free_str(str);
+	// 	print_err("COLOR imformations split dailed\n");
+	// }
+	if (!str || !str[0] || !str[1] || !str[2] || get_strnum(str) != 3)
+	{
+		free_str(str);
+		print_err("Wrong color value\n");
+	}
 	color = 0;
-	str[2][ft_strlen(str[2]) - 1] = '\0';
+	// str[2][ft_strlen(str[2]) - 1] = '\0';
 	rgb_r = change_str_to_int(str[0]);
 	rgb_g = change_str_to_int(str[1]);
 	rgb_b = change_str_to_int(str[2]);
