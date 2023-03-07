@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:23:54 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/03/07 16:29:14 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:35:15 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	check_wall(char **map, int w, int h)
 		{
 			if (map[y][x] == ' ')
 				check_space_valid(map, x, y);
-			else if (map[y][x] == '1' || map[y][x] == '0' || map[y][x] == 'N'\
-			|| map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
-				continue ;
-			else
-				print_err("map point valid is wrong\n");
+			// else if (map[y][x] == '1' || map[y][x] == '0' || map[y][x] == 'N'\
+			// || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+			// 	continue ;
+			// else
+			// 	print_err("map point valid is wrong\n");
 		}
 	}
 }
